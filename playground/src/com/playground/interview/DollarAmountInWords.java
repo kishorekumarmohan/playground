@@ -52,7 +52,13 @@ public class DollarAmountInWords {
 	}
 
 	public static void main(String[] args) {
-		String inputStr = args[0];		
+		String inputStr = null;
+		try {
+			inputStr = args[0];
+		} catch(Exception e) {
+			inputStr = "8724657234.78";
+		}
+		
 		DollarAmountInWords dollarAmountInWords = new DollarAmountInWords();
 		System.out.println(dollarAmountInWords.amountToWords(inputStr));
 	}
@@ -132,7 +138,6 @@ public class DollarAmountInWords {
 			m_amountInWords.append(" ");
 			m_amountInWords.append(s_ones.get(s.charAt(1) + ""));
 		}
-
 	}
 
 	private void convertOnes(String s) {
