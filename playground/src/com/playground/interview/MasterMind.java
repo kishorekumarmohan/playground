@@ -8,11 +8,15 @@ import java.util.Scanner;
  */
 public class MasterMind {
 
+	final char COLORS[] = { 'R', 'B', 'G', 'Y' };
+
+	final int MAX = 3;
+	final int MIN = 0;
+
 	public static void main(String s[]) {
 		MasterMind mm = new MasterMind();
 		final char code[] = mm.codeMaker();
-		System.out.println(code);
-		System.out.println("Enter your choice here (e.g.: RBGY) : ");
+		System.out.print("Enter your choice here (e.g.: RBGY) : ");
 
 		Scanner scanner = new Scanner(System.in);
 		int counter = 0;
@@ -22,30 +26,30 @@ public class MasterMind {
 				System.out.println("Invalid input, try again");
 				continue;
 			}
-			int[] results = mm.codeBreaker2(input, code);
+			int[] results = mm.codeBreaker(input, code);
 
 			System.out.println("hits : " + results[0] + "; pseudo-hits : " + results[1]);
-			System.out.println(input);
 			counter++;
 
 			if (results[0] == 4) {
-				System.out.println("Wow! you won a jackpot.");
+				System.out.println("Wow! you won a jackpot, Computer generated code is " + new String(code));
 				break;
 			}
 			if (counter == 8) {
-				System.out.println("Sorry you lost. Try again.");
+				System.out.println("Sorry you lost. Try again. Computer generated code is : " + new String(code));
 				break;
 			}
+			System.out.print("Enter your choice here (e.g.: RBGY) : ");
 		}
 		scanner.close();
 	}
 
-	final char COLORS[] = { 'R', 'B', 'G', 'Y' };
-
-	final int MAX = 3;
-	final int MIN = 0;
-
-	private char[] codeMaker() {
+	/**
+	 * Generates 4 char random code (e.g.: RGYR, RBYG etc)
+	 * 
+	 * @return char[]
+	 */
+	public char[] codeMaker() {
 		char code[] = new char[4];
 		Random random = new Random();
 		for (int i = 0; i < 4; i++) {
@@ -57,7 +61,15 @@ public class MasterMind {
 		return code;
 	}
 
-	public int[] codeBreaker2(char[] input, final char[] code) {
+	/**
+	 * Validates the user input code against the computer generated code and
+	 * returns the no of hits and psuedo-hits
+	 * 
+	 * @param char[] input
+	 * @param final char[] code
+	 * @return
+	 */
+	public int[] codeBreaker(char[] input, final char[] code) {
 		int[] results = new int[2];
 		char[] reset = new char[4];
 		int k = 0;
@@ -76,13 +88,25 @@ public class MasterMind {
 			}
 		}
 
+		char[] c1 = new char[4];
 		for (int i = 0; i < code.length; i++) {
 			for (int j = 0; j < input.length; j++) {
-				if (code[i] == input[j]) {
+				if (code[i] == input[j] && !hasAlreadyAccounted(c1, code[i])) {
 					results[1]++;
+					c1[i] = code[i];
 				}
 			}
 		}
 		return results;
+	}
+
+	private boolean hasAlreadyAccounted(char[] c, char i) {
+		boolean found = false;
+		for (int n = 0; n < c.length; n++) {
+			if (c[n] == i) {
+				return true;
+			}
+		}
+		return found;
 	}
 }
