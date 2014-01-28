@@ -1,3 +1,3 @@
 playground
 ==========
-1. Code samples test projects etc.
+1. Code samples & test projects etc.
