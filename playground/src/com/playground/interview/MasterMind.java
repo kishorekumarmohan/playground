@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 /**
  * @author kmohan
+ * Implemented by not using any Java collections api.
  */
 public class MasterMind {
 
