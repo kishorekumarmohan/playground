@@ -2,7 +2,9 @@ package com.playground.interview;
 
 import org.junit.Assert;
 import org.junit.Test;
-
+/**
+ * @author kmohan
+ */
 public class ChampionsTest {
 	@Test
 	public void testFindChampions() {
