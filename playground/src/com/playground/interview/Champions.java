@@ -35,11 +35,15 @@ public class Champions {
 		int[] possibleScores = { -1, 0, 1 };
 		int val;
 		int maxNoOfPlayers = 10;
+		int minNoOfPlayers = 3;
 
 		Random r = new Random();
 		int size = r.nextInt(maxNoOfPlayers);
-		if (size < 2) {
-			size = 3;
+		while (size < minNoOfPlayers) {
+			size = r.nextInt(maxNoOfPlayers);
+			if (size >= minNoOfPlayers) {
+				break;
+			}
 		}
 		int[][] scores = new int[size][size];
 		for (int j = 0; j < size; j++) {
